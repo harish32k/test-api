@@ -30,6 +30,7 @@ api.add_resource(EmpLogin,'/login')
 
 @app.route('/')
 def home():
-    return("<h1 style='font-family: sans-serif;'>This is an API to interact with the EMP and DEPT tables</h1>.")
+    return("<h1 style='font-family: sans-serif;'>This is an API with JWT to interact with the EMP and DEPT tables</h1>.")
 
-app.run(debug=True)
+if __name__=='__main__':
+    app.run()
