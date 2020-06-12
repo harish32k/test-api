@@ -34,4 +34,4 @@ def home():
                 <p style="font-size:2em">Developed by Harish Akula</p>""")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
