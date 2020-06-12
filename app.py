@@ -1,13 +1,17 @@
 from flask import Flask,jsonify
 from flask_restful import Api
-from resources.emp import Emp, Dept, EmpLogin
 from flask_jwt_extended import JWTManager
+from resources.emp import Emp
+from resources.emp import EmpLogin
 
 app = Flask(__name__)
-app.config['PROPAGATE_EXCEPTIONS']=True
-app.config['JWT_SECRET_KEY']='coscskillup'
-api = Api(app)
 
+app.config['PROPAGATE_EXCEPTIONS']=True
+app.config['JWT_SECRET_KEY'] = 'coscskillup'
+
+api = Api(app)
+api.add_resource(Emp, '/emp')
+api.add_resource(EmpLogin, '/login')
 jwt=JWTManager(app)
 
 @jwt.unauthorized_loader
@@ -24,13 +28,10 @@ def invalid_token_callback(error):
         'message': 'Signature verification failed.'
     }), 401
 
-api.add_resource(Emp, '/emp')
-api.add_resource(Dept, '/dept')
-api.add_resource(EmpLogin,'/login')
-
 @app.route('/')
 def home():
-    return("<h1 style='font-family: sans-serif;'>This is an API with JWT to interact with the EMP and DEPT tables</h1>.")
+    return(f"""<h1 style="font-family: 'Palatino Linotype';">This is an API to interact with the EMP table</h1>
+                <p style="font-size:2em">Developed by Harish Akula</p>""")
 
-if __name__=='__main__':
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
